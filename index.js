@@ -1,4 +1,4 @@
- function permut(string) {
+ function findAllPermutations(string) {
   if (string.length < 2) return string; // This is our break condition
 
   var permutations = []; // This array will hold our permutations
