@@ -1,41 +1,18 @@
-function findAllPermutations(letters, opts) {
-  opts = opts || {}
-  var maxSize = typeof opts === 'number'
-    ? opts
-    : opts.maxSize
-  var recursive = opts && opts.recursive
+ function permut(string) {
+  if (string.length < 2) return string; // This is our break condition
 
-  if (!letters) {
-    throw new TypeError('Expected letters')
+  var permutations = []; // This array will hold our permutations
+  for (var i = 0; i < string.length; i++) {
+    var char = string[i];
+
+    // Cause we don't want any duplicates:
+    if (string.indexOf(char) != i) // if char was used already
+      continue; // skip it this time
+
+    var remainingString = string.slice(0, i) + string.slice(i + 1, string.length); //Note: you can concat Strings via '+' in JS
+
+    for (var subPermutation of permut(remainingString))
+      permutations.push(char + subPermutation)
   }
-
-  if (typeof maxSize !== 'number') {
-    throw new TypeError('Expected the size to be a number')
-  }
-
-  function permutations(letters, size) {
-    var results = []
-    for (var i = 0; i < letters.length; i++) {
-      var res = letters[i]
-      if (size === 1) {
-        results.push(res)
-      } else {
-        var rest = permutations(letters, size - 1)
-        for (var j = 0; j < rest.length; j++) {
-          results.push(res + rest[j])
-        }
-      }
-    }
-    return results
-  }
-
-  if (recursive) {
-    var results = []
-    for (var i = 1; i <= maxSize; i++) {
-      results = results.concat(permutations(letters, i))
-    }
-    return results
-  }
-
-  return permutations(letters, maxSize)
+  return permutations;
 }
