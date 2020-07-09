@@ -11,7 +11,7 @@
 
     var remainingString = string.slice(0, i) + string.slice(i + 1, string.length); //Note: you can concat Strings via '+' in JS
 
-    for (var subPermutation of permut(remainingString))
+    for (var subPermutation of findAllPermutations(remainingString))
       permutations.push(char + subPermutation)
   }
   return permutations;
